@@ -5,9 +5,11 @@ import java.util.Calendar;
 
 public class Archive {
 	private FileWriter writer;
-	private final static String path = "C:/Users/Perrin/git/E4510_HW1_1/src/";
+	private String path;
 	
-	public Archive() {
+	public Archive(String newPath) {
+		this.path = newPath;
+		
 		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
 		String filename = "result_" + timeStamp;
 		try {
@@ -23,6 +25,15 @@ public class Archive {
 			writer.write(step + "\t" + distance);
 		} catch (IOException e) {
 			System.out.println("ERROR SAVING DATA TO RESULT FILE");
+			e.printStackTrace();
+		}
+	}
+	
+	public void closeArchive() {
+		try {
+			writer.close();
+		} catch (IOException e) {
+			System.out.println("ERROR CLOSING RESULT FILE");
 			e.printStackTrace();
 		}
 	}
