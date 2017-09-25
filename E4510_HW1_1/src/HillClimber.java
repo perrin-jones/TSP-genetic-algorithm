@@ -4,7 +4,7 @@ import java.util.Collections;
 public class HillClimber {
 	private ArrayList<Point> points;
 	private ArrayList<Path> route;
-	private int numKeep = 1;
+	private int numKeep;
 	
 	public HillClimber(ArrayList<Point> newPoints, int newNumKeep) {
 		points = newPoints;
@@ -19,6 +19,7 @@ public class HillClimber {
 		
 		for(int i = 0; i < points.size()-1; i++) {
 			newPath = new Path(points.get(i), points.get(i+1));
+			route.add(newPath);
 		}
 	}
 	
@@ -29,14 +30,21 @@ public class HillClimber {
 		
 		for(int i = 0; i < route.size(); i++) {
 			Path newPath = route.get(i);
-			if(!newPath.getKeep() && kept < numKeep) {
+			if(!newPath.getKeep()) {
 				if(kept < numKeep) {
 					newPath.setKeep(true);
+					newRoute.add(newPath);
 					route.remove(i);
+					i--;
+					kept++;
 				} else { 
 					break;
 				} 
-			} 
+			} else if(newPath.getKeep()) {
+				newRoute.add(newPath);
+				route.remove(i);
+				i--;
+			}
 		}
 		
 		Collections.shuffle(route);
@@ -47,7 +55,11 @@ public class HillClimber {
 		}
 		for(int i = 0; i < route.size(); i+=2) {
 			route.get(i).swap(route.get(i+1));
+			newRoute.add(route.get(i));
+			newRoute.add(route.get(i+1));
 		}
+		
+		route = newRoute;
 
 		return this.getRouteDistance();
 	}
@@ -58,5 +70,13 @@ public class HillClimber {
 			totalDistance += route.get(i).getDistance();
 		}
 		return totalDistance;
+	}
+	
+	public void getEvalNum() {
+		long number = 0;
+		for (int i=0; i < route.size(); i++) {
+			number += 0;
+		}
+		System.out.println(number);
 	}
 }

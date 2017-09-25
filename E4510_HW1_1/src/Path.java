@@ -4,19 +4,23 @@ public class Path implements Comparable<Path>{
 	private Point source;
 	private Point target;
 	private boolean keep;
+	private long numEval;
 	
 	public Path(Point point1, Point point2) {
 		source = point1;
 		target = point2;
 		this.distance = Math.hypot(source.getX()-target.getX(), source.getY()-target.getY());
+		numEval++;
 		keep = false;
 	}
 	
 	public double getDistance() {
+		numEval++;
 		return distance;
 	}
 
 	public void setDistance(double distance) {
+		numEval++;
 		this.distance = distance;
 	}
 
@@ -44,8 +48,10 @@ public class Path implements Comparable<Path>{
 		this.keep = keep;
 	}
 	
+	@Override
 	public int compareTo(Path other) {
-		return (int)(this.distance - other.getDistance());
+		numEval += 2;
+		return (int)(this.distance*100 - other.getDistance()*100);
 	}
 
 	public void swap(Path other) {
@@ -55,6 +61,11 @@ public class Path implements Comparable<Path>{
 	
 		this.distance = Math.hypot(this.source.getX()-this.target.getX(), this.source.getY()-this.target.getY());
 		other.distance = Math.hypot(other.source.getX()-other.target.getX(), other.source.getY()-other.target.getY());
+		numEval += 2;
+	}
+	
+	public long getNumEval() {
+		return numEval;
 	}
 	
 }

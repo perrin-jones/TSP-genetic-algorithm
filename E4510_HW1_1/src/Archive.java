@@ -10,7 +10,7 @@ public class Archive {
 	public Archive(String newPath) {
 		this.path = newPath;
 		
-		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime()) + ".txt";
 		String filename = "result_" + timeStamp;
 		try {
 			writer = new FileWriter(path + filename);
@@ -22,7 +22,7 @@ public class Archive {
 	
 	public void save(int step, double distance) {
 		try {
-			writer.write(step + "\t" + distance);
+			writer.write(step + "\t" + distance + "\r\n");
 		} catch (IOException e) {
 			System.out.println("ERROR SAVING DATA TO RESULT FILE");
 			e.printStackTrace();

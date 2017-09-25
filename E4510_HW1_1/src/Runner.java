@@ -4,7 +4,7 @@ public class Runner {
 	//Runs the algorithm, decides how often it runs
 	public static void main(String[] args) {
 		String filename = args[1];
-		File fileSystem = new File(filename);
+		FileImport fileSystem = new FileImport(filename);
 		ArrayList<Point> points = fileSystem.getData();
 		int numKeep = Integer.parseInt(args[3]);
 		HillClimber algo = new HillClimber(points, numKeep);
@@ -18,10 +18,12 @@ public class Runner {
 		double result;
 		while(i < iteration) {
 			result = algo.run();
-			arch.save(iteration, result);
+			arch.save(i, result);
+			i++;
 		}
 		
 		arch.closeArchive();
+		algo.getEvalNum();
 	}
 
 }
