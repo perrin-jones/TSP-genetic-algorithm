@@ -6,10 +6,11 @@ public class Runner {
 		String filename = args[1];
 		File fileSystem = new File(filename);
 		ArrayList<Point> points = fileSystem.getData();
-		HillClimber algo = new HillClimber(points);
+		int numKeep = Integer.parseInt(args[3]);
+		HillClimber algo = new HillClimber(points, numKeep);
 		
-		String archievePath = args[2];
-		Archive arch = new Archive(args[2]);
+		String archivePath = args[2];
+		Archive arch = new Archive(archivePath);
 		
 
 		int iteration = Integer.parseInt(args[0]);
