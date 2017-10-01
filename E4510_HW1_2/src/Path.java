@@ -44,4 +44,18 @@ public class Path {
 	public void shufflePath() {
 		Collections.shuffle(path);
 	}
+	
+	public int getPathLength() {
+		return path.size();
+	}
+	
+	public void clearPath() {
+		for(int i = 0; i < this.getPathLength(); i++) {
+			this.path.set(i, null);
+		}
+	}
+	
+	public boolean contains(Point point) {
+		return path.contains(point);
+	}
 }
