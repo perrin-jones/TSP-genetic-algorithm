@@ -1,9 +1,11 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Algorithm {
 	private double numMutate;
     private int numTourn;
     private ArrayList<Point> points;
+    Random rand = new Random();
     
     public Algorithm(double mutate, int tourn, ArrayList<Point> newPoints) {
     	numMutate = mutate;
@@ -12,7 +14,8 @@ public class Algorithm {
     }
     
     public Population evolve (Population population) {
-    	Population nextPopulation = new Population(population.getPathsSize(), points);
+		ArrayList<Point> tempPoints = (ArrayList<Point>) points.clone();
+    	Population nextPopulation = new Population(population.getPathsSize(), tempPoints);
     	
     	for(int i = 0; i < nextPopulation.getPathsSize(); i ++) {
     		Path path1 = compete(population);
@@ -29,11 +32,12 @@ public class Algorithm {
     }
     
     private Path crossover(Path path1, Path path2) {
-    	Path pathHybrid = new Path(points);
+		ArrayList<Point> tempPoints = (ArrayList<Point>) points.clone();
+    	Path pathHybrid = new Path(tempPoints);
     	pathHybrid.clearPath();
     	
-    	int start = (int) (Math.random() * path1.getPathLength());
-    	int stop = (int) (Math.random() * path1.getPathLength());
+    	int start = (int) (rand.nextDouble() * path1.getPathLength());
+    	int stop = (int) (rand.nextDouble() * path1.getPathLength());
     	
     	if(start > stop) {
     		//swap
@@ -48,11 +52,12 @@ public class Algorithm {
     		}
     	}
     	
-    	for(int i = 0; i < pathHybrid.getPathLength(); i++) {
+    	for(int i = 0; i < path2.getPathLength(); i++) {
     		if(!pathHybrid.contains(path2.getPoint(i))) {
     			for(int j = 0; j < pathHybrid.getPathLength(); j++) {
     				if(pathHybrid.getPoint(j) == null) {
     					pathHybrid.setPoint(j, path2.getPoint(i));
+    					break;
     				}
     			}
     		}
@@ -62,10 +67,13 @@ public class Algorithm {
     }
     
     private Path compete(Population population) {
-    	Population tournement = new Population(numTourn, points);
+		ArrayList<Point> tempPoints = (ArrayList<Point>) points.clone();
+    	Population tournement = new Population(numTourn, tempPoints);
+    	String help = "";
     	for(int i = 0; i < numTourn; i++) {
-    		int spot = (int) (Math.random() * population.getPathsSize());
+    		int spot = (int) (rand.nextDouble() * population.getPathsSize());
     		tournement.setPath(i, population.getPath(spot));
+    		help += spot + ",";
     	}
     	return tournement.searchFit();
     }
@@ -73,8 +81,8 @@ public class Algorithm {
     private Path mutate(Path path) {
     	Path newPath = path;
     	for(int i = 0; i < newPath.getPathLength(); i++) {
-    		if(numMutate > Math.random()) {
-    			int j = (int) (Math.random() * newPath.getPathLength());
+    		if(numMutate > rand.nextDouble()) {
+    			int j = (int) (rand.nextDouble() * newPath.getPathLength());
     			
     			//swap
     			Point temp = newPath.getPoint(i);

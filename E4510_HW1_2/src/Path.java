@@ -2,12 +2,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Path {
-	private ArrayList<Point> path;
+	private ArrayList<Point> path = new ArrayList<Point>();
 	private double distance = 0;
 	private double fitness = 0;
 	
 	public Path (ArrayList<Point> newPath) {
 		path = newPath;
+		Collections.shuffle(path);
 	}
 	
 	public Point getPoint(int pos) {
@@ -41,8 +42,9 @@ public class Path {
 		fitness = 0;
 	}
 	
-	public void shufflePath() {
+	public ArrayList<Point> shufflePath() {
 		Collections.shuffle(path);
+		return path;
 	}
 	
 	public int getPathLength() {

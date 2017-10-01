@@ -26,7 +26,10 @@ public class FileImport {
 			data.add(new Point(x,y));
 		}
 		
-		Collections.shuffle(data);
-		return data;
+		ArrayList<Point> finalData = new ArrayList<Point>(50);
+		for (int i = 0; i < 50; i++) {
+			finalData.add(data.get(i));
+		}
+		return finalData;
 	}
 }

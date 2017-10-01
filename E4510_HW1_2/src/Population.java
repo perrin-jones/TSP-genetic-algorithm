@@ -1,16 +1,18 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Population {
 	private Path[] paths;
-	private ArrayList<Point> points;
+	private ArrayList<Point> points = new ArrayList<Point>();
 	
 	public Population(int size, ArrayList<Point> newPoints) {
 		paths = new Path[size];
 		points = newPoints;
 		
 		for(int i = 0; i < size; i++) {
-			Path newPath = new Path(points);
-			newPath.shufflePath();
+			ArrayList<Point> temp = (ArrayList<Point>) points.clone();
+			Collections.shuffle(temp);
+			Path newPath = new Path(temp);
 			paths[i] = newPath;
 		}
 	}
