@@ -32,7 +32,7 @@ public class Path {
 	
 	public double getFitness() {
 		if(fitness == 0) {
-			fitness = 1/this.getDistance();
+			fitness = 1-1/this.getDistance();
 		}
 		return fitness;
 	}
@@ -59,5 +59,11 @@ public class Path {
 	
 	public boolean contains(Point point) {
 		return path.contains(point);
+	}
+
+	public void print() {
+		for(int i = 0; i < path.size(); i++) {
+			System.out.println(path.get(i));
+		}
 	}
 }

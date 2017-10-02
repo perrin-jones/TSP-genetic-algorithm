@@ -17,6 +17,14 @@ public class Point {
 	}
 	
 	public double getDistance(Point other) {
+		EvaluationManager.bump();
 		return Math.sqrt( Math.pow((this.getX()-other.getX()),2) + Math.pow((this.getY()-other.getY()),2) );
 	}
+
+	@Override
+	public String toString() {
+		return x + "\t" + y;
+	}
+	
+	
 }

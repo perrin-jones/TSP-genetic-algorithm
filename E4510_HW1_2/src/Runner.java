@@ -10,7 +10,7 @@ public class Runner {
 		int populationSize = 100;
 		int generations = 100;
 		double mutate = .03;
-		int competeNum = 5;
+		int competeNum = 10;
 		
 		Population population = new Population(populationSize, points);
         System.out.println("Initial distance: " + population.searchFit().getDistance());
@@ -18,11 +18,13 @@ public class Runner {
         Algorithm algo = new Algorithm(mutate, competeNum, points);
 		
 		for(int i = 0; i < generations; i++) {
-			System.out.println(i + "    " + population.searchFit().getDistance());
+			System.out.println(i + "\t" + EvaluationManager.print() + "\t" + population.searchFit().getDistance());
 			population = algo.evolve(population);
 		}
 		System.out.println("Finished");
         System.out.println("Final distance: " + population.searchFit().getDistance());
+        
+        population.searchFit().print();
 	}
 
 }
